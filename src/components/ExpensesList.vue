@@ -1,6 +1,6 @@
 <template>
   <div >
-    <h3>Latest transactions</h3>
+   
     <div class="expense-list" v-if="expenses.length > 0">
       <expense-item 
         v-for="expense in expenses"
@@ -16,10 +16,7 @@
  </template>
  
 <style lang="scss">
- h3 {
-  text-align: left;
-  color: #7f00ff;
-}
+  
 </style>
 
 <script>

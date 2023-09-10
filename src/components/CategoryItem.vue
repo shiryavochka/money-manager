@@ -1,10 +1,26 @@
 <template>
-  <label class="category-item">
-    <input type="checkbox" @change="changeCat" :value="category.name" v-model="isChecked">
+  <label class="category-item" :class="{ active: isChecked }   ">
+    <input type="checkbox" @change="changeCat" :value="category.name" v-model="isChecked" >
     {{ category.name }} <!-- {{ category.name || '' }}  Добавляем проверку на наличие свойства 'name' -->
   </label>
 </template>
+<style>
+input[type=checkbox] {
+  display: none;
+}
+.category-item{
+  padding: 5px 15px;
+  background-color: #a005ca;
+  margin-right: 12px;
+  color: white;
+  border-radius: 11px;
+}
+.active {
+  background-color: #dd236a;
+  order: -1;
 
+}
+</style>
 <script>
 export default {
   props: {
@@ -14,9 +30,7 @@ export default {
     },
   },
   data() {
-    return {
-      // Уберите isChecked из data
-    };
+    
   },
   computed: {
     isChecked: {

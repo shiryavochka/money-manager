@@ -1,28 +1,34 @@
-<template>   
+<template>  
     <form @submit.prevent>
-        <h3>Добавить трату</h3>
         <my-input 
         v-model="expence.amounts"
-
-        placeholder="Сумма"
+        placeholder="Amount"
         type="text"
         ></my-input>
         <my-input
         type="text"
         v-model="expence.name"
-        placeholder="Имя"
+        placeholder="Expense"
         ></my-input>
         <my-select v-model="selectedS" :options="options" ></my-select>
         <my-button @click="addExpense">Add Expense</my-button>
     </form>
 </template>
 <style>
-
+input {
+    padding: 7px 12px;
+    border: none;
+    border-radius: 11px;
+    margin-right: 15px;
+}
+form {
+    display: flex;
+}
 </style>
 <script>
 export default {
     data() {
-        return {    selectedS: '', // Добавьте selectedS в данные компонента
+        return {    selectedS: '',
 
             expence: {
                 amounts:'',
@@ -41,8 +47,8 @@ export default {
     methods: {
         formatTime(date) {
       // Преобразовываем дату в строку с заданным форматом (без часового пояса)
-      const formattedDate = date.toISOString().slice(0, 16).replace("T", " ");
-      return formattedDate;
+        const formattedDate = date.toISOString().slice(0, 16).replace("T", " ");
+        return formattedDate;
     },
         addExpense() {
         const newDate = new Date();

@@ -1,14 +1,20 @@
 <template>
   <div class="home">
-    <h1>MoneyFy</h1>
-    <div><h2>Всего потратили:</h2> 
+    <h1>Money manager</h1>
+    <div class="container"><h2>Total spent:</h2> 
       <div>{{ summaall }}</div>
-    
     </div>
-    
-    <form-add @create="addExpense" :options="categories"></form-add>
-    <category-list :categories="categories" @update="changeCat"></category-list>
-    <expenses-list  :expenses="filteredJobs"  @remove="removePost" ></expenses-list>
+    <div class="container">
+      <h2>Add Expense</h2>
+      <form-add @create="addExpense" :options="categories"></form-add>
+    </div>
+    <div class="container">
+      <category-list :categories="categories" @update="changeCat" ></category-list>
+    </div>
+    <div class="container"> 
+      <h2>Latest transactions</h2>
+      <expenses-list  :expenses="filteredJobs"  @remove="removePost" ></expenses-list>
+    </div>
   </div>
 </template>
 <!--   поиск
@@ -129,10 +135,13 @@ export default {
 }
 </script>
 <style>
-body {margin: 0;
-    padding: 0;
-    
-    background: #0c032c;}
+
+.container {
+    background-color: #0c032c;
+    padding: 20px 25px;
+    margin: 10px 15px;
+    border-radius: 11px;
+}
     </style>
     <!-- <div style="border: 3px solid red ">
       <p>Рабочий пример</p>

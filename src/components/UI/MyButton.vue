@@ -12,11 +12,13 @@
   
   <style scoped>
   .btn {
-    padding: 10px 15px;
+    padding: 7px 15px;
     background: none;
-    color: teal;
-    border: 1px solid teal;
+    color: white;  margin: 0 10px;
+    border: none;
+    background-color: #0378d5;
+    border-radius: 11px;
   }
-  .btn:hover{background-color: red;}
+  .btn:hover{background-color: grey;}
   </style>
   

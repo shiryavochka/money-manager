@@ -1,6 +1,6 @@
 <template>
     <select v-model="selectedOption" @change="changeOption">
-      <option disabled default value="">Выберите из списка</option>
+      <option disabled default value="">Select a category</option>
       <option
         v-for="option in options"
         :key="option.name"
@@ -37,5 +37,5 @@ export default {
 </script>
 
 <style scoped>
-
+select {    border-radius: 11px;}
 </style>
