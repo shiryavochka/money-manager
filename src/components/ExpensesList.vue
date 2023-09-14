@@ -1,6 +1,5 @@
 <template>
   <div >
-   
     <div class="expense-list" v-if="expenses.length > 0">
       <expense-item 
         v-for="expense in expenses"

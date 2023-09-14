@@ -1,5 +1,5 @@
 <template>
-  <label class="category-item" :class="{ active: isChecked }   ">
+  <label class="category-item" >
     <input type="checkbox" @change="changeCat" :value="category.name" v-model="isChecked" >
     {{ category.name }} <!-- {{ category.name || '' }}  Добавляем проверку на наличие свойства 'name' -->
   </label>
@@ -29,9 +29,7 @@ export default {
       required: true,
     },
   },
-  data() {
-    
-  },
+ 
   computed: {
     isChecked: {
       get() {
@@ -42,5 +40,7 @@ export default {
       },
     },
   },
+  
+
 };
 </script>

@@ -1,9 +1,26 @@
 <template>
   <div class="home">
-    <h1>Money manager</h1>
+    <h1>Dashboard</h1>
+    <!-- <chart-tabs></chart-tabs>
+    <my-chart :categories="categories" :percentage-data="percentageData"></my-chart> -->
     <div class="container"><h2>Total spent:</h2> 
       <div>{{ summaall }}</div>
+    <div class="chart-wrap">
+        <canvas ref="myChart"  id="myChart"  ></canvas>
+        <div class="legend">
+          <ul class="legend-list">
+            <li class="legend-item" v-for="(category, index) in categories" :key="category.id">
+              
+              <span class="category-color" :style="{ backgroundColor: category.color }"></span>
+              {{ category.name }} - {{ percentageData[index] }}%
+            </li>
+          </ul>
+        </div>
+      </div>
+
     </div>
+
+   
     <div class="container">
       <h2>Add Expense</h2>
       <form-add @create="addExpense" :options="categories"></form-add>
@@ -13,10 +30,32 @@
     </div>
     <div class="container"> 
       <h2>Latest transactions</h2>
-      <expenses-list  :expenses="filteredJobs"  @remove="removePost" ></expenses-list>
+      <expenses-list  :expenses="sortedJobs"  @remove="removePost" ></expenses-list>
     </div>
   </div>
 </template>
+<style> 
+.chart-wrap{
+  width: 50%;
+  display: flex;
+   height: 400px;    align-items: center;
+}
+.legend-list {
+  width: 400px;
+  
+}
+.category-color {    width: 30px;
+    height: 20px;
+    border-radius: 4px;
+    margin-right: 15px;}
+.legend-item {
+  list-style-type: none;
+    display: flex;
+    
+    margin: 10px 0;
+}
+</style>
+
 <!--   поиск
         <FilterComponent v-model="search" ref="searchFilter" />
       <ul v-for="category in searchResult" :key="category.id">
@@ -27,43 +66,66 @@
 <script>
 import ExpensesList from '@/components/ExpensesList.vue';
 import FormAdd from "@/components/FormAdd";
-import { toNumber } from '@vue/shared';
-// import HelloWorld from '@/components/HelloWorld.vue'; 
+import { toNumber } from '@vue/shared'; 
+// import ChartTabs from '@/components/ChartTabs.vue';
 import CategoryList from "@/components/CategoryList.vue";
-// import FilterComponent from "@/components/FilterComponent";
+// import MyChart from '@/components/MyChart.vue'; // Импортируйте новый компонент
 
+// import FilterComponent from "@/components/FilterComponent";
+import Chart from 'chart.js/auto';
 export default {
   name: 'HomeView',
   components: {
     ExpensesList,
+    // ChartTabs,MyChart,
+    // PieChart,MyPieChart,
     CategoryList,
     FormAdd 
   },
 
   data () {
-      return {
+    
+      return { 
+       
+  
           expenses :[
           {  amounts: '1500', dataAdd : '2023-08-05 10:03', category:'house' , name: 'IKEA',},
-          {  amounts: '500', dataAdd : '2023-08-09 12:10', category:'apartment rent',name: 'AirBnB-Rent', },
+          {  amounts: '9000', dataAdd : '2023-08-09 12:10', category:'apartment rent',name: 'AirBnB-Rent', },
           {  amounts: '100', dataAdd : '2023-08-10 19:45', category:'sport',name: 'Sportmaster', },
           {  amounts: '500', dataAdd : '2023-08-15 08:33', category:'sport' ,name: 'XFit', },
+          {  amounts: '2700', dataAdd : '2023-08-16 10:40', category:'gifts' ,name: 'Flower shop', },
+          {  amounts: '1500', dataAdd : '2023-08-16 17:15', category:'services' ,name: 'Haircut', },
+          {  amounts: '602', dataAdd : '2023-08-17 09:06', category:'groceries' ,name: 'Vegetables', },
+          {  amounts: '980', dataAdd : '2023-08-17 11:57', category:'restaurants' ,name: 'Lunch', },
+          {  amounts: '500', dataAdd : '2023-08-18 08:20', category:'health' ,name: 'Therapist', },
+          {  amounts: '2800', dataAdd : '2023-08-18 21:01', category:'clothes' ,name: 'Shirts', },
+          {  amounts: '1500', dataAdd : '2023-08-19 18:18', category:'entertainments' ,name: 'Cinema', },
+          {  amounts: '2500', dataAdd : '2023-08-19 16:47', category:'services' ,name: 'Manicure', },
+          {  amounts: '2900', dataAdd : '2023-08-20 19:40', category:'clothes' ,name: 'Jeans', },
+          {  amounts: '5420', dataAdd : '2023-08-20 19:58', category:'gifts' ,name: 'Cosmetics', },
+          {  amounts: '1700', dataAdd : '2023-08-21 10:15', category:'health' ,name: 'Vitamins', },
+          {  amounts: '600', dataAdd : '2023-08-23 15:16', category:'restaurants' ,name: 'Pizza', },
+          {  amounts: '1500', dataAdd : '2023-08-25 07:30', category:'transport' ,name: 'Travel card', },
+          {  amounts: '664', dataAdd : '2023-08-25 15:10', category:'house' ,name: 'Electricity', },
       ],  
       checked: [], 
+      myChart: null,
       categories : [
-        {name:'entertainments', id :1},
-        {name:'apartment rent', id:2},
-        {name:'sport', id:3},
-        {name:'restaurants', id:4},
-        {name:'house', id:5},
-        {name:'clothes', id:6},
-        {name:'groceries', id:7},
-        {name:'services', id:8},
-        {name:'health', id:11},
-        {name:'transport', id:9},
-        {name:'gifts', id:10}
+        {name:'entertainments', id :1, color:'GreenYellow'},
+        {name:'apartment rent', id:2, color:'HotPink'},
+        {name:'sport', id:3, color:'LightSeaGreen'},
+        {name:'restaurants', id:4, color:'Gold'},
+        {name:'house', id:5, color:'MediumSlateBlue'},
+        {name:'clothes', id:6, color:'Salmon'},
+        {name:'groceries', id:7, color:'DodgerBlue'},
+        {name:'services', id:8, color:'DarkOrange'},
+        {name:'health', id:11, color:'Indigo'},
+        {name:'transport', id:9, color:'MediumAquamarine'},
+        {name:'gifts', id:10, color:'Violet'},
       ],
       search: null,
       selectedS:'' ,
+      
       // users: [
       //   { id: 1, name: "john", email: "john@xyz.com" },
       //   { id: 2, name: "lee min", email: "leemin@xyz.com" },
@@ -75,21 +137,109 @@ export default {
     }
 
   } ,  
-    computed:{
+  mounted() {
+    this.updateChart();
+},
+
+  // mounted() {
+  //   const ctx = document.getElementById('myChart');
+  //   const numbers = this.expenses.map((item) => item.amounts);
+  //   const colors = this.categories.map((item) => item.color);
+
+  //   const data = {
+  //     labels: this.categories.map((category) => category.name),
+  //     datasets: [
+  //       {
+  //         label: 'My First Dataset',
+  //         data: numbers,
+  //         backgroundColor: colors,
+  //         hoverOffset: 4,
+  //       },
+  //     ],
+  //   };
+
+  //  const MyChart = new Chart(ctx,{
+  //     type: 'doughnut',
+  // data: data,
+  //  });
+  //  MyChart;
+  //  },
+    computed:{percentageData() {
+      const total = this.summaall;
+      return this.categories.map((category) => {
+        const categoryTotal = this.filteredJobs
+          .filter((expense) => expense.category === category.name)
+          .reduce((sum, expense) => sum + parseFloat(expense.amounts), 0);
+        return ((categoryTotal / total) * 100).toFixed(2);
+      });
+    },
+    categoryColorMap() {
+      const colorMap = {};
+      this.categories.forEach((category) => {
+        colorMap[category.name] = category.color;
+      });
+      return colorMap;
+    },
+
       summaall() {
         return this.expenses.reduce((sum, login) => sum + toNumber(login.amounts), 0);
 
  
       },
+      sortedJobs() {
+    const filteredExpenses = this.filteredJobs;
+    
+    // Сортируем отфильтрованные транзакции по дате в убывающем порядке
+    return [...filteredExpenses].sort((a, b) => {
+      const dateA = new Date(a.dataAdd);
+      const dateB = new Date(b.dataAdd);
+      return dateB - dateA; // Сравниваем даты в обратном порядке
+    });
+  },
       filteredJobs() {
         if (this.checked.length === 0) {
-          return this.expenses; // Если ни одна категория не выбрана, возвращаем все расходы
+          return  this.expenses; // Если ни одна категория не выбрана, возвращаем все расходы
           } else {
             return this.expenses.filter(expense => this.checked.includes(expense.category));
 
       // Фильтруем расходы по выбранным категориям
     }
   },
+  // chartData() {
+  //     const categoryData = {};
+  //     this.expenses.forEach((expense) => {
+  //       if (categoryData[expense.category]) {
+  //         categoryData[expense.category] += expense.amounts;
+  //       } else {
+  //         categoryData[expense.category] = expense.amounts;
+  //       }
+  //     });
+
+  //     const labels = Object.keys(categoryData);
+  //     const data = Object.values(categoryData);
+
+  //     return {
+  //       labels,
+  //       datasets: [
+  //         {
+  //           data,
+  //           backgroundColor: [
+  //             '#FF6384',
+  //             '#36A2EB',
+  //             '#FFCE56',
+  //             // Добавьте другие цвета здесь...
+  //           ],
+  //         },
+  //       ],
+  //     };
+  //   },
+  //   chartOptions() {
+  //     return {
+  //       responsive: true,
+  //       maintainAspectRatio: false,
+  //     };
+  //   },
+  
     searchResult() {
       if (this.search) {
         return this.categories.filter((item) => {
@@ -115,16 +265,90 @@ export default {
                 this.checked.splice(index, 1); // Удаляем категорию из выбранных
             }
             }
+            
         },
+        editExpense() {},
         addExpense(expense) {
-
+          
           this.expenses.push(expense);
-          console.log(this.expenses);
+          this.updateChart();
+          // this.myChart.update();
+          // console.log(this.expenses);
              // Обновляем отфильтрованный список трат
     // this.filteredExpenses = this.filteredJobs;
         },
+        updateChart() {
+  const categoryExpenses = {};
+
+  this.expenses.forEach((expense) => {
+    if (categoryExpenses[expense.category]) {
+      categoryExpenses[expense.category] += parseFloat(expense.amounts);
+    } else {
+      categoryExpenses[expense.category] = parseFloat(expense.amounts);
+    }
+  });
+ 
+  const ctx = this.$refs.myChart.getContext('2d');
+  const labels = Object.keys(categoryExpenses);
+  // В этом коде мы создали объект categoryColors, который инициализируется пустым. 
+  // Затем мы создали вычисляемое свойство categoryColorMap, которое создает объект с соответствием между именами категорий и цветами, используя массив categories. 
+  // Теперь мы используем categoryColorMap для определения цветов при создании диаграммы.
+  //  Это позволит сохранить изначальный порядок категорий и соответствующих им цветов.
+  // const colors = this.categories.map((item) => item.color);
+  const backgroundColors = labels.map((label) => this.categoryColorMap[label]);
+
+  const data = {
+    labels: Object.keys(categoryExpenses),
+    datasets: [
+      {
+        label: 'Total expenses',
+        data: Object.values(categoryExpenses),
+        backgroundColor: backgroundColors,
+        hoverOffset: 4,
+      },
+    ],
+  };
+
+  // Уничтожаем предыдущий график, если он существует
+  if (this.myChart) {
+    this.myChart.destroy();
+    this.myChart = null; // Ус
+  }
+
+  this.myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: data,
+    options: {
+      plugins: {
+        legend: {
+          display: false,
+        },
+        title: {
+          display: false,
+        },
+      },
+      cutout: '40%',
+      animation: {
+        animateScale: true,
+        animateRotate: true,
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: {
+        padding: {
+          top: 20,
+          bottom: 20,
+          left: 20,
+          right: 20,
+        },
+      },
+    },
+  });
+},
+ 
         removePost(expense) {
           this.expenses = this.expenses.filter(p => p.dataAdd!== expense.dataAdd);
+          this.updateChart();
         },
     },
     // watch: {

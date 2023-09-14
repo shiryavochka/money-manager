@@ -1,15 +1,21 @@
 <template>   
  
   <nav>
+    <div>
+      <span>Money manager</span>
     <img alt="Vue logo" src="@/assets/money-management.png"  width="80px"/> 
-    <router-link to="/">Home</router-link> 
-    <router-link to="/about">About</router-link>
+    </div>
+    <router-link to="/">Dashboard</router-link> 
+    <router-link to="/about">Transactions</router-link>
+    <router-link to="/about">Analytics</router-link>
+    <router-link to="/about">Help</router-link>
     
   </nav>
   <router-view/>
 </template>
 
 <style lang="scss">
+h1{text-align: left;}
 h2,h3,h4 { color:#ff0084;text-align: left;}
 body {margin: 0;
     padding: 0;
@@ -46,6 +52,8 @@ nav {
   color: white;
 
   a {
+    margin: 15px 0;
+    text-decoration: none;
     font-weight: bold;
     color: #feffff;
 

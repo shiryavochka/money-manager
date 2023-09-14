@@ -1,40 +1,56 @@
 <template>
-   <label v-for="user in users" :key="user.id"
-   >
-   <input type="checkbox" :value="user.name" v-model="selectedUsers">
-{{ user.name }}
-   </label>
-  <div class="text-left">
-
-    <input type="checkbox" value="Tom" v-model="selectedUsers">
- <label>Tom</label><br>
-  <input type="checkbox" value="Bob" v-model="selectedUsers">
-  <label>Bob</label><br>
-  <input type="checkbox" value="Sam" v-model="selectedUsers">
-  <label>Sam</label><br>
-  <input type="checkbox" value="Alice" v-model="selectedUsers">
-  <label>Alice</label><br>
-  <span>Выбрано: {{selectedUsers}}</span>
-  </div>
-
+   <h1>The page is under development</h1>
+   <div class="chart-wrap">
+  <canvas id="myChart" width="400px" height="400px"></canvas>
+</div>
 </template>
 
-
-<script> 
+<style>
+.chart-wrap{
+   width: 400px;
+    height: 400px;
+}</style>
+<script>  
+import Chart from 'chart.js/auto';
 export default {
-data() {
-return { 
-    selectedUsers:[],
+   data () {
     
-    users: [
-        { id: 1, name: "john", email: "john@xyz.com" },
-        { id: 2, name: "lee min", email: "leemin@xyz.com" },
-        { id: 3, name: "alexa", email: "alexa@xyz.com" },
-        { id: 4, name: "rosy", email: "rosy@xyz.com" },
-        { id: 5, name: "joy", email: "joy@xyz.com" },
-        { id: 6, name: "john", email: "john@vue.com" },
-      ],
+    return { 
+     datesd:[{number:300, color: 'rgb(255, 99, 132)'},
+     {number:300, color: 'red'},
+     {number:300, color:    'GreenYellow'},]
+     
+     
+      }
+    },
+  
+   mounted ()  {
+   const ctx = document.getElementById('myChart');
+   const numbers = this.datesd.map((item) => item.number);
+     const colors = this.datesd.map((item) => item.color);
+ 
+     const data = {
+       labels: ['Red', 'Blue', 'Yellow'],
+       datasets: [
+         {
+           label: 'My First Dataset',
+           data: numbers,
+           backgroundColor: colors,
+           hoverOffset: 4,
+         },
+       ],
+     }; 
+
+   const MyChart = new Chart(ctx,{
+      type: 'doughnut',
+  data: data,
+   });
+   MyChart;
+   }
 }
-}
-}
-</script> 
+
+  
+ 
+</script>
+
+  

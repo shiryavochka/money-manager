@@ -10,6 +10,10 @@
   gap: 7px;
   justify-content: flex-start;
 }
+.selected {
+  background-color: #dd236a; /* Измените на желаемый цвет */
+  /* Другие стили для выбранной категории */
+}
 
 </style>
 <script>
