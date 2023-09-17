@@ -11,7 +11,7 @@
         placeholder="Expense"
         ></my-input>
         <my-select v-model="selectedS" :options="options" ></my-select>
-        <my-button @click="addExpense">Add Expense</my-button>
+        <my-button class="add-button" @click="addExpense">Add Expense</my-button>
     </form>
 </template>
 <style>
@@ -23,6 +23,18 @@ input {
 }
 form {
     display: flex;
+}
+
+@media (max-width: 540px) {
+    form{
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+    input{margin: 5px;} 
+    .add-button {
+        margin: 5px;
+    height: 30px;
+    }
 }
 </style>
 <script>

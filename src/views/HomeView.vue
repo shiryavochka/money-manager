@@ -1,8 +1,13 @@
 <template>
   <div class="home">
     <h1>Dashboard</h1>
-    <!-- <chart-tabs></chart-tabs>
-    <my-chart :categories="categories" :percentage-data="percentageData"></my-chart> -->
+    
+
+    <div class="container">
+      <chart-tabs></chart-tabs>
+    </div>
+    
+    <!-- <my-chart :categories="categories" :percentage-data="percentageData"></my-chart> --> -->
     <div class="container"><h2>Total spent:</h2> 
       <div>{{ summaall }}</div>
     <div class="chart-wrap">
@@ -56,18 +61,12 @@
 }
 </style>
 
-<!--   поиск
-        <FilterComponent v-model="search" ref="searchFilter" />
-      <ul v-for="category in searchResult" :key="category.id">
-        <li>{{ category.name }}</li>
-      </ul> -->
-    <!-- <category-list v-model="checked" @toParent="changeCat"  :categories="categories"></category-list> 
-    выбрано  -->
+
 <script>
 import ExpensesList from '@/components/ExpensesList.vue';
 import FormAdd from "@/components/FormAdd";
 import { toNumber } from '@vue/shared'; 
-// import ChartTabs from '@/components/ChartTabs.vue';
+ import ChartTabs from '@/components/ChartTabs.vue';
 import CategoryList from "@/components/CategoryList.vue";
 // import MyChart from '@/components/MyChart.vue'; // Импортируйте новый компонент
 
@@ -76,8 +75,8 @@ import Chart from 'chart.js/auto';
 export default {
   name: 'HomeView',
   components: {
-    ExpensesList,
-    // ChartTabs,MyChart,
+    ExpensesList,ChartTabs,
+    // ,MyChart,
     // PieChart,MyPieChart,
     CategoryList,
     FormAdd 
@@ -126,14 +125,7 @@ export default {
       search: null,
       selectedS:'' ,
       
-      // users: [
-      //   { id: 1, name: "john", email: "john@xyz.com" },
-      //   { id: 2, name: "lee min", email: "leemin@xyz.com" },
-      //   { id: 3, name: "alexa", email: "alexa@xyz.com" },
-      //   { id: 4, name: "rosy", email: "rosy@xyz.com" },
-      //   { id: 5, name: "joy", email: "joy@xyz.com" },
-      //   { id: 6, name: "john", email: "john@vue.com" },
-      // ], 
+    
     }
 
   } ,  
@@ -205,53 +197,9 @@ export default {
       // Фильтруем расходы по выбранным категориям
     }
   },
-  // chartData() {
-  //     const categoryData = {};
-  //     this.expenses.forEach((expense) => {
-  //       if (categoryData[expense.category]) {
-  //         categoryData[expense.category] += expense.amounts;
-  //       } else {
-  //         categoryData[expense.category] = expense.amounts;
-  //       }
-  //     });
-
-  //     const labels = Object.keys(categoryData);
-  //     const data = Object.values(categoryData);
-
-  //     return {
-  //       labels,
-  //       datasets: [
-  //         {
-  //           data,
-  //           backgroundColor: [
-  //             '#FF6384',
-  //             '#36A2EB',
-  //             '#FFCE56',
-  //             // Добавьте другие цвета здесь...
-  //           ],
-  //         },
-  //       ],
-  //     };
-  //   },
-  //   chartOptions() {
-  //     return {
-  //       responsive: true,
-  //       maintainAspectRatio: false,
-  //     };
-  //   },
   
-    searchResult() {
-      if (this.search) {
-        return this.categories.filter((item) => {
-          return this.search
-            .toLowerCase()
-            .split(" ")
-            .every((v) => item.name.toLowerCase().includes(v));
-        });
-      } else {
-        return this.categories;
-      }
-    },
+  
+    
       }
       ,
       methods: {
@@ -272,10 +220,7 @@ export default {
           
           this.expenses.push(expense);
           this.updateChart();
-          // this.myChart.update();
-          // console.log(this.expenses);
-             // Обновляем отфильтрованный список трат
-    // this.filteredExpenses = this.filteredJobs;
+         
         },
         updateChart() {
   const categoryExpenses = {};
@@ -351,11 +296,7 @@ export default {
           this.updateChart();
         },
     },
-    // watch: {
-    //   selectedS (newV) {
-    //     console.log(newV);
-    //   }
-    // }
+    
 }
 </script>
 <style>
@@ -366,15 +307,4 @@ export default {
     margin: 10px 15px;
     border-radius: 11px;
 }
-    </style>
-    <!-- <div style="border: 3px solid red ">
-      <p>Рабочий пример</p>
- <label    v-for="categor in categories" :key="categor.id"> 
-  <input v-model="checked" type="checkbox" :value="categor.name"/> {{ categor.name }}
- </label>
- 
-  вывод списка <ul >
-    <li v-for=" test in filteredJobs" :key="test.dataAdd">
-    {{ test.amounts }}</li>
-  </ul> 
-</div> -->
+</style>

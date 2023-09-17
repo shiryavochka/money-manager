@@ -19,6 +19,15 @@
     background-color: #0378d5;
     border-radius: 11px;
   }
+
   .btn:hover{background-color: grey;}
+  @media (max-width: 540px){
+    .btn {
+      padding: 4px 5px;
+
+    margin: 0px 5px;
+    }
+    
+  }
   </style>
   

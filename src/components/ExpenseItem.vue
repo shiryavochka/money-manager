@@ -34,6 +34,20 @@
   .expense-info{    
     margin-left: 15px;
   }
+  @media (max-width: 540px){
+    .expense-item{
+      margin: 10px 0;
+    }
+    .expense-info{
+    margin-left: 5px;
+  }
+    .expense-info--date{
+      font-size: 9px;
+    }
+    .expense-info--name{
+      
+    font-size: 14px;
+    }}
 </style>
 <script> 
   export default {

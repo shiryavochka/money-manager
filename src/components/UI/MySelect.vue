@@ -38,4 +38,11 @@ export default {
 
 <style scoped>
 select {    border-radius: 11px;}
+
+@media (max-width: 540px){
+  select {    height: 30px;
+    margin: 5px;
+    padding: 7px 8px;
+}}
+
 </style>

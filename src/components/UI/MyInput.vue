@@ -8,6 +8,9 @@
   padding: 10px 15px;
   margin-top: 15px;
 }
+@media (max-width: 540px){
+  .input{margin: 5px;} 
+}
 </style>
 <script>
 export default {
