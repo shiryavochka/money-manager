@@ -1,7 +1,7 @@
 <template>
-  <label class="category-item" >
-    <input type="checkbox" @change="changeCat" :value="category.name" v-model="isChecked" >
-    {{ category.name }} <!-- {{ category.name || '' }}  Добавляем проверку на наличие свойства 'name' -->
+  <label class="category-item"  :class="{ 'active': isActive }">
+    <input type="checkbox" @change="changeCat" :value="category.name" v-model="isChecked">
+    {{ category.name }} <!-- {{ category.name || '' }}  Добавляем проверку на наличие свойства   'name' -->
   </label>
 </template>
 <style>
@@ -23,11 +23,17 @@ input[type=checkbox] {
 </style>
 <script>
 export default {
+  data(){
+    return{
+      isActive:false
+    }
+  },
   props: {
     category: {
       type: Object,
       required: true,
     },
+   
   },
  
   computed: {
@@ -37,10 +43,10 @@ export default {
       },
       set(value) {
         this.$emit('update', { category: this.category, isChecked: value });
+        this.isActive = value === true;
       },
-    },
-  },
-  
+   },
+  } 
 
 };
 </script>

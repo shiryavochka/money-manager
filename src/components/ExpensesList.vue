@@ -3,8 +3,9 @@
     <div class="expense-list" v-if="expenses.length > 0">
       <expense-item 
         v-for="expense in expenses"
-        :expense="expense"
+        :expense="expense" :options="options"
         :key="expense.dataAdd"
+        @updateExpense="updateExpense"
         @remove="$emit('remove', expense)"
       ></expense-item>
     </div>
@@ -28,9 +29,17 @@ export default {
     expenses: {
       type: Array,
       required: true
-    }
+    }, options: {
+      type: Array,
+      default: () => [],
+    },
+  },
+  methods: {
+    // Отправляем событие обновления расхода вверх
+    updateExpense(updatedExpense) {
+      this.$emit("updateExpense", updatedExpense);
+    },
   }
-     
   }
 </script>
 

@@ -7,7 +7,7 @@
       <chart-tabs></chart-tabs>
     </div>
     
-    <!-- <my-chart :categories="categories" :percentage-data="percentageData"></my-chart> --> -->
+    <!-- <my-chart :categories="categories" :percentage-data="percentageData"></my-chart> --> 
     <div class="container"><h2>Total spent:</h2> 
       <div>{{ summaall }}</div>
     <div class="chart-wrap">
@@ -24,6 +24,7 @@
       </div>
 
     </div>
+  
 
    
     <div class="container">
@@ -35,7 +36,7 @@
     </div>
     <div class="container"> 
       <h2>Latest transactions</h2>
-      <expenses-list  :expenses="sortedJobs"  @remove="removePost" ></expenses-list>
+      <expenses-list  :expenses="sortedJobs"  :options="categories" @remove="removePost"  @updateExpense="updateExpense"  ></expenses-list>
     </div>
   </div>
 </template>
@@ -63,6 +64,7 @@
 
 
 <script>
+
 import ExpensesList from '@/components/ExpensesList.vue';
 import FormAdd from "@/components/FormAdd";
 import { toNumber } from '@vue/shared'; 
@@ -109,6 +111,7 @@ export default {
       ],  
       checked: [], 
       myChart: null,
+     
       categories : [
         {name:'entertainments', id :1, color:'GreenYellow'},
         {name:'apartment rent', id:2, color:'HotPink'},
@@ -213,6 +216,7 @@ export default {
                 this.checked.splice(index, 1); // Удаляем категорию из выбранных
             }
             }
+            // console.log(this.checked);
             
         },
         editExpense() {},
@@ -295,6 +299,16 @@ export default {
           this.expenses = this.expenses.filter(p => p.dataAdd!== expense.dataAdd);
           this.updateChart();
         },
+        updateExpense(updatedExpense) {
+    const index = this.expenses.findIndex(expense => expense.dataAdd === updatedExpense.dataAdd);
+
+    if (index !== -1) {
+      this.expenses[index] = updatedExpense; // Обновляем существующую трата
+      this.updateChart(); // Вызываем метод обновления графика
+    }
+  },
+  
+    
     },
     
 }

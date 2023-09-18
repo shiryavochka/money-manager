@@ -6,10 +6,19 @@
       <!-- <p>{{ expense.category }}</p> -->
       <div class="expense-info--amounts">{{ expense.amounts }}</div>
       <div class="btns-wrapper">
-      <my-button>Edit</my-button>
+      <my-button  @click="editExpense">Edit</my-button>
       <my-button @click="$emit('remove', expense)">Delete</my-button>
       </div>
-      
+      <my-modal
+      :options="options"
+      :isOpen="isModalOpen"
+      :expense="expense"
+       
+      @closeModal="closeEditModal"
+      @updateExpense="updateExpense"
+    ></my-modal>
+       
+    
     </div>
 </template>
 <style lang="scss">
@@ -49,13 +58,36 @@
     font-size: 14px;
     }}
 </style>
-<script> 
+<script>
+import MyModal from '@/components/MyModal.vue'; 
   export default {
     props: {
       expense: {
         type: Object,
         required: true,
-        }
-      },     
-}
+        }, options: {
+      type: Array,
+      default: () => [],
+    },
+      }, 
+      components: {MyModal},
+      data() {
+    return {
+      isModalOpen: false, // Флаг, который указывает, открыто ли модальное окно
+    };
+  },
+  methods: {
+    editExpense() {
+      this.isModalOpen = true; // Открываем модальное окно для редактирования
+    },
+    
+    updateExpense(updatedExpense) {
+      this.$emit("updateExpense", updatedExpense); // Отправляем отредактированный расход вверх
+      this.isModalOpen = false; // Закрываем модальное окно для редактирования
+    },
+   
+    closeEditModal() {
+      this.isModalOpen = false;
+    },    
+}}
 </script>

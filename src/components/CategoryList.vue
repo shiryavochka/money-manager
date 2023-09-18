@@ -1,6 +1,6 @@
 <template>
   <div class="category-list" >
-    <category-item @update="handleCategoryUpdate" v-for="category in categories"    :category="category" :key="category.id"></category-item>
+    <category-item @update="handleCategoryUpdate" v-for="category in categories" :category="category" :key="category.id"></category-item>
   </div>
 </template>
 <style>
@@ -26,11 +26,13 @@ export default {
       type: Array,
       required: true,
     },
+    
   },
   methods: {
     handleCategoryUpdate(category) {
       this.$emit('update', category); // Передаем выбранную категорию вверх
     },
+    
   },
 };
 </script>
