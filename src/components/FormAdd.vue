@@ -10,38 +10,33 @@
         v-model="expence.name"
         placeholder="Expense"
         ></my-input>
-        <my-select v-model="selectedS" :options="options" ></my-select>
+        <my-select v-model="selectedCategory" :options="options" ></my-select>
         <my-button class="add-button" @click="addExpense">Add Expense</my-button>
     </form>
 </template>
 <style>
-input {
-    padding: 7px 12px;
-    border: none;
-    border-radius: 11px;
-    margin-right: 15px;
-}
 form {
     display: flex;
 }
-
 @media (max-width: 540px) {
-    form{
+    form {
         flex-direction: column;
         flex-wrap: wrap;
     }
-    input{margin: 5px;} 
+    input{ 
+        margin: 5px;
+    } 
     .add-button {
         margin: 5px;
-    height: 30px;
+        height: 30px;
     }
 }
 </style>
 <script>
 export default {
     data() {
-        return {    selectedS: '',
-
+        return {
+            selectedCategory: '',
             expence: {
                 amounts:'',
                 category:'',
@@ -50,7 +45,6 @@ export default {
             }
         }
     }, 
-    
     props: {
     options: {
       type: Array,
@@ -65,8 +59,7 @@ export default {
         addExpense() {
         const newDate = new Date();
         this.expence.dataAdd = this.formatTime(newDate);
-        
-        this.expence.category = this.selectedS; // Установите выбранную категорию
+        this.expence.category = this.selectedCategory; // Установите выбранную категорию
         this.$emit('create', this.expence)
         this.expence = {
             amounts:'',
@@ -75,7 +68,5 @@ export default {
         }
         }, 
   },
-
 }
 </script>
-

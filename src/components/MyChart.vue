@@ -1,15 +1,17 @@
 <template>
-    <div class="chart-wrap">
-      <canvas id="myChart"></canvas>
-      <div class="legend">
-        <ul class="legend-list">
-          <li class="legend-item" v-for="(category, index) in categories" :key="category.id">
-            <span class="category-color" :style="{ backgroundColor: category.color }"></span>
-            {{ category.name }} - {{ percentageData[index] }}%
-          </li>
-        </ul>
+      <div class="chart-info"> 
+        <div class="chart-wrap">
+          <canvas ref="myChart"  id="myChart"  ></canvas>
+        </div>
+        <div class="legend">
+          <ul class="legend-list">
+            <li class="legend-item" v-for="(category, index) in categories" :key="category.id">
+              <span class="category-color" :style="{ backgroundColor: category.color }"></span>
+              {{ category.name }} - {{ percentageData[index] }}%
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
   </template>
   
   <script>
@@ -17,26 +19,90 @@
   
   export default {
     props: {
-      categories: Array, // Передавайте категории в компонент через пропс
-      percentageData: Array, // Передавайте данные о процентном соотношении также через пропс
+      categories: {
+      type: Array,
+      required: true,
     },
-    mounted() {
-      const ctx = document.getElementById('myChart');
-      const colors = this.categories.map((item) => item.color);
-  
+    expenses: {
+      type: Array,
+      required: true,
+    },
+    filteredJobs: {
+      type: Array,
+      required: true,
+    }, summaall: {
+      type: Array,
+      required: true,
+    },
+  },
+  watch: {
+    expenses: {
+      handler() {
+        this.updateChart(); // Вызываем обновление графика при изменении данных
+      },
+      deep: true,
+    },
+  },
+  data() {
+    return {
+      myChart: null,
+    };
+  },
+  mounted() {
+    this.updateChart();
+  },
+  computed:{
+    percentageData() {
+      const total = this.summaall;
+      return this.categories.map((category) => {
+        const categoryTotal = this.filteredJobs
+        .filter((expense) => expense.category === category.name)
+        .reduce((sum, expense) => sum + parseFloat(expense.amounts), 0);
+        return ((categoryTotal / total) * 100).toFixed(2);
+      });
+    },
+    categoryColorMap() {
+      const colorMap = {};
+      this.categories.forEach((category) => {
+        colorMap[category.name] = category.color;
+      });
+      return colorMap;
+    },
+  },
+  methods: {
+    updateChart() {
+      const categoryExpenses = {};
+
+      this.expenses.forEach((expense) => {
+        if (categoryExpenses[expense.category]) {
+          categoryExpenses[expense.category] += parseFloat(expense.amounts);
+        } else {
+        categoryExpenses[expense.category] = parseFloat(expense.amounts);
+        }
+      });
+      
+      const ctx = this.$refs.myChart.getContext('2d');
+      const labels = Object.keys(categoryExpenses);     
+      // создали вычисляемое свойство categoryColorMap, которое создает объект с соответствием между именами категорий и цветами, используя массив categories. 
+      // теперь можно использовать categoryColorMap для определения цветов при создании диаграммы. Это позволит сохранить изначальный порядок категорий и соответствующих им цветов.
+      const backgroundColors = labels.map((label) => this.categoryColorMap[label]);
       const data = {
-        labels: this.categories.map((category) => category.name),
+        labels: Object.keys(categoryExpenses),
         datasets: [
           {
             label: 'Total expenses',
-            data: this.percentageData,
-            backgroundColor: colors,
+            data: Object.values(categoryExpenses),
+            backgroundColor: backgroundColors,
             hoverOffset: 4,
           },
         ],
       };
-  
-      const MyChart = new Chart(ctx, {
+      // Уничтожаем предыдущий график, если он существует
+      if (this.myChart) {
+        this.myChart.destroy();
+        this.myChart = null;
+      }
+      this.myChart = new Chart(ctx, {
         type: 'doughnut',
         data: data,
         options: {
@@ -65,12 +131,9 @@
           },
         },
       });
-      MyChart;
     },
+    }
   };
-  </script>
-  
-  <style scoped>
-  /* Стили для компонента ChartLegend */
-  </style>
-  
+</script>
+<style scoped>
+</style>  

@@ -1,7 +1,10 @@
 <template>
-  <label class="category-item"  :class="{ 'active': isActive }">
-    <input type="checkbox" @change="changeCat" :value="category.name" v-model="isChecked">
-    {{ category.name }} <!-- {{ category.name || '' }}  Добавляем проверку на наличие свойства   'name' -->
+  <label class="category-item" :class="{ 'active': isActive }">
+    <input type="checkbox" 
+    @change="changeCat"
+    :value="category.name"
+    v-model="isChecked"
+    >{{ category.name }}<!-- {{ category.name || '' }}  Добавляем проверку на наличие свойства   'name' -->
   </label>
 </template>
 <style>
@@ -18,7 +21,6 @@ input[type=checkbox] {
 .active {
   background-color: #dd236a;
   order: -1;
-
 }
 </style>
 <script>
@@ -33,9 +35,7 @@ export default {
       type: Object,
       required: true,
     },
-   
   },
- 
   computed: {
     isChecked: {
       get() {
@@ -47,6 +47,5 @@ export default {
       },
    },
   } 
-
 };
 </script>

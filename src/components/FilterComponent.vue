@@ -2,16 +2,17 @@
   <div>
     <span>Search:</span>
     <input
-      type="text" v-model="modelValue"  @input="changeOption"
-       
-    
+    type="text"
+    v-model="modelValue"
+    @input="changeOption"    
     />
   </div>
 </template>
 <style scoped>
 span {
   margin-right:auto ;
-}</style>
+}
+</style>
 <script>
 export default {
   name: "FilterComponent",
@@ -24,4 +25,4 @@ export default {
     }
   }
 };
-</script> 
+</script>

@@ -1,25 +1,23 @@
 <template> 
  <h1>All transactions</h1>
-   <div class="container"> 
-     
-      <FilterComponent v-model="search"  ref="searchFilter" />
-      <expenses-list  :expenses="searchResult()"   ></expenses-list>
-    </div>
+  <div class="container">
+    <FilterComponent v-model="search"  ref="searchFilter" />
+    <expenses-list  :expenses="searchResult()"></expenses-list>
+  </div>
 </template>
-
 <style>
 .chart-wrap{
    width: 400px;
     height: 400px;
-}</style>
+}
+</style>
 <script>   
 import FilterComponent from '@/components/FilterComponent.vue';
 import ExpensesList from '@/components/ExpensesList.vue';
 export default {
   components: {FilterComponent,ExpensesList,},
    data () {
-    
-    return { 
+    return {
       search: null,
       expenses :[
           {  amounts: '1500', dataAdd : '2023-08-05 10:03', category:'house' , name: 'IKEA',},
@@ -40,7 +38,7 @@ export default {
           {  amounts: '600', dataAdd : '2023-08-23 15:16', category:'restaurants' ,name: 'Pizza', },
           {  amounts: '1500', dataAdd : '2023-08-25 07:30', category:'transport' ,name: 'Travel card', },
           {  amounts: '664', dataAdd : '2023-08-25 15:10', category:'house' ,name: 'Electricity', },
-    ]
+        ]
       }
     },
     methods:{
@@ -56,8 +54,6 @@ export default {
         return this.expenses;
       }
     },
-    }
+  }
 }
 </script>
-
-  

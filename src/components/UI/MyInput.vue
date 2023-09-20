@@ -2,14 +2,16 @@
     <input :value="modelValue" @input="updateInput" >
 </template>
 <style lang="scss" scoped>
-.input {
-  width: 100%;
-  border: 1px solid teal;
-  padding: 10px 15px;
-  margin-top: 15px;
+input {
+  padding: 7px 12px;
+  border: none;
+  border-radius: 11px;
+  margin-right: 15px;
 }
-@media (max-width: 540px){
-  .input{margin: 5px;} 
+@media (max-width: 540px) {
+  input {
+    margin: 5px;
+  }  
 }
 </style>
 <script>
@@ -25,6 +27,3 @@ export default {
   }
 }
 </script>
- 
- 
-
