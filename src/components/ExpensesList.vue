@@ -12,8 +12,6 @@
     <h2>There were no expenses, add the first expense</h2>
     </div>
  </template>
-<style>
-</style>
 <script>
 import ExpenseItem from "@/components/ExpenseItem.vue";
 export default {
@@ -37,3 +35,5 @@ export default {
   }
   }
 </script>
+<style>
+</style>

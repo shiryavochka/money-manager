@@ -16,7 +16,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import Chart from 'chart.js/auto';
 
@@ -137,49 +136,36 @@ export default {
 }
 };
 </script>
-<style scoped>
+<style scoped lang="sass">
+.chart-wrap
+  width: 50%
+  height: 400px
+.chart-info
+  flex-wrap: wrap
+  display: flex
+  align-items: center
+.legend-list
+  width: 100%
+  word-break: break-all
+  max-width: 400px
+.category-color
+  width: 30px
+  height: 20px
+  border-radius: 4px
+  margin-right: 15px
 
-.chart-wrap{
-  width: 50%;    
-  height: 400px;  
-}
-.chart-info { 
-  flex-wrap: wrap;
-  display: flex;
-  align-items: center;
-}
-.legend-list {
-  width: 100%;
-  word-break: break-all;
-  max-width: 400px;
-}
-.category-color {    
-  width: 30px;
-  height: 20px;
-  border-radius: 4px;
-  margin-right: 15px;
-}
-.legend-item {
-  list-style-type: none;
-  display: flex;
-  margin: 10px 0;
-}
-@media (max-width: 680px) {
+.legend-item
+  list-style-type: none
+  display: flex
+  margin: 10px 0
+
+@media (max-width: 680px)
   .chart-wrap
-  {
-    width: 100%;
-    height: 320px;
-  }
-  .legend-list{
-    padding: 0;
-  }
-  }
-  @media (max-width: 375px) {
-    .chart-wrap
-  {
-
-    height: 200px;
-  }
-  }
-  
+    width: 100%
+    height: 320px
+  .legend-list
+    padding: 0
+@media (max-width: 375px)
+  .chart-wrap
+    height: 200px
 </style>  

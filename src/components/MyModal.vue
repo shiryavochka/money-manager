@@ -65,50 +65,50 @@ export default {
   },
 };
 </script>
-<style>
-.edit-form {
-  padding: 20px;
-}
-.button-wrapper{
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-}
-.edit-form input, .edit-form select {
-  width:100% ;
-}
-.button-wrapper .btn{
-  width: 40%;
-}
-.modal-title {
-  color: #a005ca;
-    font-size: 20px;
-    margin: 10px 0;
-    font-weight: 600;
-}
-.cancel-button {background-color: grey!important;;}
-.expense-modal {
-  background-color: white;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  max-width: 90%;
-  width: 300px;
-}
+<style lang="sass">
+.edit-form
+  padding: 20px
 
-@media (max-width: 768px) {
-  .expense-modal {
-    width: 70%;  
-    margin: 10px auto;
-    max-width: 100%; 
-  }
-}
-@media (max-width: 480px) {
-  .expense-modal {
-    width: 80%;  }
-}
+.button-wrapper
+  width: 100%
+  display: flex
+  justify-content: space-around
+
+.edit-form
+  input, select
+    width: 100%
+
+.button-wrapper .btn
+  width: 40%
+
+.modal-title
+  color: #a005ca
+  font-size: 20px
+  margin: 10px 0
+  font-weight: 600
+
+.cancel-button
+  background-color: grey !important
+
+.expense-modal
+  background-color: white
+  border-radius: 10px
+  padding: 20px
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2)
+  position: fixed
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
+  max-width: 90%
+  width: 300px
+
+@media (max-width: 768px)
+  .expense-modal
+    width: 70%
+    margin: 10px auto
+    max-width: 100%
+
+@media (max-width: 480px)
+  .expense-modal
+    width: 80%
 </style>

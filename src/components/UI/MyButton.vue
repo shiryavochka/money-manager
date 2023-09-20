@@ -1,33 +1,29 @@
 <template>
-    <button class="btn">
-      <slot></slot>
-    </button>
-  </template>
+  <button class="btn">
+    <slot></slot>
+  </button>
+</template>
   
-  <script>
-  export default {
+<script>
+export default {
     name: 'my-button'
   }
-  </script>
+</script>
   
-  <style scoped>
-  .btn {
-    padding: 7px 15px;
-    background: none;
-    color: white;  
-    border: none;
-    background-color: #0378d5;
-    border-radius: 11px;
-  }
+<style scoped lang="sass">
+.btn
+  padding: 7px 15px
+  background: none
+  color: white
+  border: none
+  background-color: #0378d5
+  border-radius: 11px
 
-  .btn:hover{background-color: grey;}
-  @media (max-width: 540px){
-    .btn {
-      padding: 4px 5px;
+  &:hover
+    background-color: grey
 
-    margin: 0px ;
-    }
-    
-  }
-  </style>
-  
+@media (max-width: 540px)
+  .btn
+    padding: 4px 5px
+    margin: 0px 5px
+</style>  

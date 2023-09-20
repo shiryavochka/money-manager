@@ -14,23 +14,6 @@
         <my-button class="add-button" @click="addExpense">Add Expense</my-button>
     </form>
 </template>
-<style>
-form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px ;
-}
-@media (max-width: 540px) {
-    form {
-        flex-direction: column;
-        flex-wrap: wrap;
-    }
-    .add-button {
-        margin: 5px;
-        height: 30px;
-    }
-}
-</style>
 <script>
 export default {
     data() {
@@ -69,3 +52,18 @@ export default {
   },
 }
 </script>
+<style scoped lang="sass">
+form
+  display: flex
+  flex-wrap: wrap
+  gap: 10px
+
+@media (max-width: 540px)
+  form
+    flex-direction: column
+    flex-wrap: wrap
+  .add-button
+    margin: 5px
+    height: 30px
+
+</style>

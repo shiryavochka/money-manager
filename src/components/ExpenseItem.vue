@@ -18,50 +18,6 @@
     ></my-modal>
     </div>
 </template>
-<style>
-.expense-info--date{
-  font-size: 12px;
-  margin: 0;
-  color: #b776ed;
-}
-.expense-item {
-  display: flex;
-  padding: 5px;
-  align-items: center;
-  justify-content:space-between;
-  margin: 10px 0;
-  color: white;
-  border-radius: 8px;
-  background: #190d47;
-}
-.expense-info--name {    
-  font-weight: 700;
-  text-align: left;
-}
-.expense-info {
-  margin-left: 15px;
-}
-.expense-button {
-  margin: 0px 10px;
-}
-@media (max-width: 540px){
-  .expense-item {
-    margin: 10px 0;
-  }
-  .expense-button {
-    margin: 0px 3px!important;
-  }
-  .expense-info {
-  margin-left: 5px;
-  }
-  .expense-info--date {
-    font-size: 9px;
-  }
-  .expense-info--name {
-    font-size: 14px;
-  }
-}
-</style>
 <script>
 import MyModal from '@/components/MyModal.vue'; 
   export default {
@@ -94,3 +50,46 @@ import MyModal from '@/components/MyModal.vue';
     },    
 }}
 </script>
+<style lang="sass">
+.expense-info--date
+  font-size: 12px
+  margin: 0
+  color: #b776ed
+
+.expense-item
+  display: flex
+  padding: 5px
+  align-items: center
+  justify-content: space-between
+  margin: 10px 0
+  color: white
+  border-radius: 8px
+  background: #190d47
+
+.expense-info--name
+  font-weight: 700
+  text-align: left
+
+.expense-info
+  margin-left: 15px
+
+.expense-button
+  margin: 0px 10px
+
+@media (max-width: 540px)
+  .expense-item
+    margin: 10px 0
+
+  .expense-button
+    margin: 0px 3px !important
+
+  .expense-info
+    margin-left: 5px
+
+  .expense-info--date
+    font-size: 9px
+
+  .expense-info--name
+    font-size: 14px
+
+</style>

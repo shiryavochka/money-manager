@@ -5,12 +5,6 @@
     <expenses-list  :expenses="searchResult()"></expenses-list>
   </div>
 </template>
-<style>
-.chart-wrap{
-   width: 400px;
-    height: 400px;
-}
-</style>
 <script>   
 import FilterComponent from '@/components/FilterComponent.vue';
 import ExpensesList from '@/components/ExpensesList.vue';

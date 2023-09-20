@@ -8,11 +8,6 @@
     ></my-input>
   </div>
 </template>
-<style scoped>
-span {
-  margin: auto 10px  ;
-}
-</style>
 <script>
 export default {
   name: "FilterComponent",
@@ -26,3 +21,7 @@ export default {
   }
 };
 </script>
+<style scoped lang="sass">
+span 
+  margin: auto 10px
+</style>

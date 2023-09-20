@@ -24,41 +24,6 @@
     </div>
   </div>
 </template>
-<style>
-.tab-item__wrapper {
-  background: #190d47;
-    border-radius: 8px;
-    padding: 10px 20px;
-}
-.total-spent {
-  display: flex;
-  align-items: center;
-}
-.total-spent__title{
-  font-size: 22px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  margin-left: 25px;
- }
-.tabs {
-  display: flex;
-  justify-content: flex-start;
-  padding: 0;
-}
-.tab-item {
-  list-style: none;
-  margin-right: 20px;
-  cursor: pointer;
-  border-radius: 8px;
-  background: #190d47;
-  padding: 10px;
-  color: white;
-  text-decoration: none;
-}
-.tab-item__active {
-  background-color: #ff0084;
-}
-</style>
 <script>
 import MyChart from './MyChart.vue';
 export default {
@@ -86,3 +51,37 @@ export default {
       required: true,
     },}
 }</script>
+<style lang="sass">
+.tab-item__wrapper
+  background: #190d47
+  border-radius: 8px
+  padding: 10px 20px
+
+.total-spent
+  display: flex
+  align-items: center
+
+.total-spent__title
+  font-size: 22px
+  font-weight: 600
+  letter-spacing: 2px
+  margin-left: 25px
+
+.tabs
+  display: flex
+  justify-content: flex-start
+  padding: 0
+
+.tab-item
+  list-style: none
+  margin-right: 20px
+  cursor: pointer
+  border-radius: 8px
+  background: #190d47
+  padding: 10px
+  color: white
+  text-decoration: none
+
+.tab-item__active
+  background-color: #ff0084
+</style>

@@ -8,14 +8,6 @@
     ></category-item>
   </div>
 </template>
-<style>
-.category-list { 
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-  justify-content: flex-start;
-}
-</style>
 <script>
 import CategoryItem from "@/components/CategoryItem.vue";
 
@@ -35,3 +27,10 @@ export default {
   },
 };
 </script>
+<style lang="sass">
+.category-list
+  display: flex
+  flex-wrap: wrap
+  gap: 7px
+  justify-content: flex-start
+</style>

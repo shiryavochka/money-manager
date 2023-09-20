@@ -32,9 +32,6 @@
     </div>
   </div>
 </template>
-<style> 
-
-</style>
 <script>
 import ExpensesList from '@/components/ExpensesList.vue';
 import FormAdd from "@/components/FormAdd";
@@ -138,11 +135,3 @@ export default {
     },
 }
 </script>
-<style>
-.container {
-    background-color: #0c032c;
-    padding: 20px 25px;
-    margin: 10px 15px;
-    border-radius: 11px;
-}
-</style>

@@ -1,16 +1,14 @@
 <template>
-    <select v-model="selectedOption" @change="changeOption">
-      <option disabled default value="">Select a category</option>
+  <select v-model="selectedOption" @change="changeOption">
+    <option disabled default value="">Select a category</option>
       <option
         v-for="option in options"
         :key="option.name"
         :value="option.name"
-      >
-        {{ option.name }}
-      </option>
+      >{{ option.name }}</option>
     </select>
-  </template>
- 
+</template>
+
 <script>
 export default {
   name: 'my-select',
@@ -35,16 +33,13 @@ export default {
   }
 };
 </script>
-<style scoped>
-select {
-  border-radius: 11px;
- 
-    color:  black;
-    padding: 7px 8px;
-}
-@media (max-width: 540px) {
-  select {
-    height: 30px;
-  }
-}
+<style scoped lang="sass">
+select
+  border-radius: 11px
+  color: black
+  padding: 7px 8px
+
+@media (max-width: 540px)
+  select
+    height: 30px
 </style>
