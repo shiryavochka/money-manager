@@ -7,13 +7,13 @@
             @click="selectedTab = tab" :key="index"
       >{{ tab }}</li>
     </ul>
-    <div v-show="selectedTab === 'Today'">
+    <div class="tab-item__wrapper" v-show="selectedTab === 'Today'">
       <p >Here will be a chart of spending for today.</p>
     </div>
-    <div v-show="selectedTab === 'Week'">
+    <div  class="tab-item__wrapper" v-show="selectedTab === 'Week'">
       <p>Here will be a chart of spending for week</p>
     </div>
-    <div v-show="selectedTab === 'Month'">
+    <div  class="tab-item__wrapper" v-show="selectedTab === 'Month'">
       <div class="total-spent"><h2>Total spent: </h2> <p class="total-spent__title">{{ totalValue }}</p></div>
       <my-chart 
       :categories="categories"
@@ -25,6 +25,11 @@
   </div>
 </template>
 <style>
+.tab-item__wrapper {
+  background: #190d47;
+    border-radius: 8px;
+    padding: 10px 20px;
+}
 .total-spent {
   display: flex;
   align-items: center;

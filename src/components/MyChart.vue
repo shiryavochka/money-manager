@@ -1,25 +1,28 @@
 <template>
-      <div class="chart-info"> 
-        <div class="chart-wrap">
-          <canvas ref="myChart"  id="myChart"  ></canvas>
-        </div>
-        <div class="legend">
-          <ul class="legend-list">
-            <li class="legend-item" v-for="(category, index) in categories" :key="category.id">
-              <span class="category-color" :style="{ backgroundColor: category.color }"></span>
-              {{ category.name }} - {{ percentageData[index] }}%
-            </li>
-          </ul>
-        </div>
-      </div>
-  </template>
-  
-  <script>
-  import Chart from 'chart.js/auto';
-  
-  export default {
-    props: {
-      categories: {
+  <div class="chart-info"> 
+    <div class="chart-wrap">
+      <canvas ref="myChart"  id="myChart"  ></canvas>
+    </div>
+    <div class="legend">
+      <ul class="legend-list">
+        <li class="legend-item" 
+        v-for="(category, index) in categories" 
+        :key="category.id"
+        >
+        <span class="category-color" :style="{ backgroundColor: category.color }"></span>
+          {{ category.name }} - {{ percentageData[index] }}%
+        </li>
+      </ul>
+    </div>
+  </div>
+</template>
+
+<script>
+import Chart from 'chart.js/auto';
+
+export default {
+  props: {
+    categories: {
       type: Array,
       required: true,
     },
@@ -30,7 +33,8 @@
     filteredJobs: {
       type: Array,
       required: true,
-    }, summaall: {
+    },
+    totalValue: {
       type: Array,
       required: true,
     },
@@ -51,9 +55,9 @@
   mounted() {
     this.updateChart();
   },
-  computed:{
+  computed: {
     percentageData() {
-      const total = this.summaall;
+      const total = this.totalValue;
       return this.categories.map((category) => {
         const categoryTotal = this.filteredJobs
         .filter((expense) => expense.category === category.name)
@@ -65,14 +69,13 @@
       const colorMap = {};
       this.categories.forEach((category) => {
         colorMap[category.name] = category.color;
-      });
+        });
       return colorMap;
     },
   },
   methods: {
     updateChart() {
       const categoryExpenses = {};
-
       this.expenses.forEach((expense) => {
         if (categoryExpenses[expense.category]) {
           categoryExpenses[expense.category] += parseFloat(expense.amounts);
@@ -80,7 +83,6 @@
         categoryExpenses[expense.category] = parseFloat(expense.amounts);
         }
       });
-      
       const ctx = this.$refs.myChart.getContext('2d');
       const labels = Object.keys(categoryExpenses);     
       // создали вычисляемое свойство categoryColorMap, которое создает объект с соответствием между именами категорий и цветами, используя массив categories. 
@@ -130,10 +132,54 @@
             },
           },
         },
-      });
-    },
-    }
-  };
+  });
+},
+}
+};
 </script>
 <style scoped>
+
+.chart-wrap{
+  width: 50%;    
+  height: 400px;  
+}
+.chart-info { 
+  flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+}
+.legend-list {
+  width: 100%;
+  word-break: break-all;
+  max-width: 400px;
+}
+.category-color {    
+  width: 30px;
+  height: 20px;
+  border-radius: 4px;
+  margin-right: 15px;
+}
+.legend-item {
+  list-style-type: none;
+  display: flex;
+  margin: 10px 0;
+}
+@media (max-width: 680px) {
+  .chart-wrap
+  {
+    width: 100%;
+    height: 320px;
+  }
+  .legend-list{
+    padding: 0;
+  }
+  }
+  @media (max-width: 375px) {
+    .chart-wrap
+  {
+
+    height: 200px;
+  }
+  }
+  
 </style>  

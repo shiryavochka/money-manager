@@ -5,7 +5,8 @@
       <chart-tabs :categories="categories"
       :expenses="expenses"
       :filtered-jobs="filteredJobs"
-      :totalValue="totalValue"></chart-tabs>
+      :totalValue="totalValue"
+      ></chart-tabs>
     </div>   
     <div class="container">
       <h2>Add Expense</h2>
@@ -32,30 +33,7 @@
   </div>
 </template>
 <style> 
-.chart-wrap{
-  width: 50%;    
-  height: 400px;  
-}
-.chart-info { 
-  flex-wrap: wrap;
-  display: flex;
-  align-items: center;
-}
-.legend-list {
-  width: 100%;
-  max-width: 400px;
-}
-.category-color {    
-  width: 30px;
-  height: 20px;
-  border-radius: 4px;
-  margin-right: 15px;
-}
-.legend-item {
-  list-style-type: none;
-  display: flex;
-  margin: 10px 0;
-}
+
 </style>
 <script>
 import ExpensesList from '@/components/ExpensesList.vue';
@@ -113,7 +91,7 @@ export default {
     }
     },
     computed:{
-       totalValue() {
+      totalValue() {
         return this.expenses.reduce((sum, login) => sum + toNumber(login.amounts), 0);
       },
       sortedJobs() {

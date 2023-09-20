@@ -6,12 +6,10 @@ input {
   padding: 7px 12px;
   border: none;
   border-radius: 11px;
-  margin-right: 15px;
+  border:1px solid #7e7575;
 }
 @media (max-width: 540px) {
-  input {
-    margin: 5px;
-  }  
+   
 }
 </style>
 <script>

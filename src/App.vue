@@ -58,8 +58,8 @@ nav {
     font-weight: bold;
     color: #feffff;}
 
-    nav a .router-link-exact-active {
-      color: #7f00ff;
+.router-link-exact-active {
+    color: #7f00ff;
     }
   
 img {    
@@ -68,9 +68,15 @@ img {
 
 .nav-logo {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
+  margin-bottom: 20px;
 }
+.nav-logo span{color: #659ceb;
+    font-weight: 600;}
 @media (max-width: 768px) {
+  #app {
+    margin-top: 70px;
+  }
   nav{    height: 60px;
     display: flex;
     flex-direction: row;
@@ -84,6 +90,9 @@ img {
    nav img{
       width: 50px;
       margin: auto;
+    }
+    .nav-logo {
+      margin-bottom: 0;
     }
   .nav-logo span{
     display: none;

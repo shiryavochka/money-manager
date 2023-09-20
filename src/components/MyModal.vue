@@ -1,7 +1,8 @@
 <template>
   <div class="expense-modal" v-if="isOpen">
     <div class="modal-content">
-      <form>
+      <p class="modal-title">Editing expense</p>
+      <form class="edit-form">
       <my-input 
       v-model="editedExpense.name"
       type="text"
@@ -16,9 +17,12 @@
       v-model="editedExpense.category"
       :options="options"
       ></my-select>
-      <my-button @click="saveAndCloseModal">Save</my-button>
+      <div class="button-wrapper">
+      <my-button class="cancel-button" @click="closeModal">Сancel</my-button>
+      <my-button @click="saveAndCloseModal">Save</my-button></div>
+      
       </form>
-      <my-button @click="closeModal">Close</my-button>
+     
     </div>
   </div>
 </template>
@@ -62,6 +66,27 @@ export default {
 };
 </script>
 <style>
+.edit-form {
+  padding: 20px;
+}
+.button-wrapper{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+.edit-form input, .edit-form select {
+  width:100% ;
+}
+.button-wrapper .btn{
+  width: 40%;
+}
+.modal-title {
+  color: #a005ca;
+    font-size: 20px;
+    margin: 10px 0;
+    font-weight: 600;
+}
+.cancel-button {background-color: grey!important;;}
 .expense-modal {
   background-color: white;
   border-radius: 10px;
@@ -74,16 +99,16 @@ export default {
   max-width: 90%;
   width: 300px;
 }
+
 @media (max-width: 768px) {
   .expense-modal {
-    width: 90%;  
+    width: 70%;  
+    margin: 10px auto;
     max-width: 100%; 
   }
 }
 @media (max-width: 480px) {
   .expense-modal {
-    width: 100%;
-    max-width: 100%;
-  }
+    width: 80%;  }
 }
 </style>

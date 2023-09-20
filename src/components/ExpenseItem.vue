@@ -5,9 +5,9 @@
       <p class="expense-info--date">{{ expense.dataAdd }}</p>
       </div>
       <div class="expense-info--amounts">{{ expense.amounts }}</div>
-      <div class="btns-wrapper">
-      <my-button  @click="editExpense">Edit</my-button>
-      <my-button @click="$emit('remove', expense)">Delete</my-button>
+      <div class="expense-buttons-wrapper">
+        <my-button class="expense-button" @click="editExpense">Edit</my-button>
+        <my-button class="expense-button" @click="$emit('remove', expense)">Delete</my-button>
       </div>
       <my-modal
       :options="options"
@@ -29,7 +29,7 @@
   padding: 5px;
   align-items: center;
   justify-content:space-between;
-  margin: 10px;
+  margin: 10px 0;
   color: white;
   border-radius: 8px;
   background: #190d47;
@@ -41,9 +41,15 @@
 .expense-info {
   margin-left: 15px;
 }
+.expense-button {
+  margin: 0px 10px;
+}
 @media (max-width: 540px){
   .expense-item {
     margin: 10px 0;
+  }
+  .expense-button {
+    margin: 0px 3px!important;
   }
   .expense-info {
   margin-left: 5px;

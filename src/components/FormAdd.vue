@@ -17,15 +17,14 @@
 <style>
 form {
     display: flex;
+    flex-wrap: wrap;
+    gap: 10px ;
 }
 @media (max-width: 540px) {
     form {
         flex-direction: column;
         flex-wrap: wrap;
     }
-    input{ 
-        margin: 5px;
-    } 
     .add-button {
         margin: 5px;
         height: 30px;

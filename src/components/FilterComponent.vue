@@ -1,16 +1,16 @@
 <template>
-  <div>
+  <div class="search-wrapper">
     <span>Search:</span>
-    <input
+    <my-input
     type="text"
     v-model="modelValue"
     @input="changeOption"    
-    />
+    ></my-input>
   </div>
 </template>
 <style scoped>
 span {
-  margin-right:auto ;
+  margin: auto 10px  ;
 }
 </style>
 <script>
