@@ -63,7 +63,8 @@ form
     flex-direction: column
     flex-wrap: wrap
   .add-button
-    margin: 5px
+    margin: 0px!important
     height: 30px
+  
 
 </style>
