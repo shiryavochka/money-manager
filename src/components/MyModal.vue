@@ -67,19 +67,23 @@ export default {
 </script>
 <style lang="sass">
 .edit-form
-  padding: 20px
-
-.button-wrapper
-  width: 100%
-  display: flex
-  justify-content: space-around
+  padding: 5px 20px
 
 .edit-form
   input, select
     width: 100%
+    max-width: 220px
+    margin: 5px auto
+    box-sizing: border-box
 
-.button-wrapper .btn
-  width: 40%
+.button-wrapper
+  width: 100%
+  display: flex
+  margin-top: 10px
+  justify-content: space-around
+
+  .btn
+    width: 40%
 
 .modal-title
   color: #a005ca
