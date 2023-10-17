@@ -1,25 +1,42 @@
 <template>
- <div>    
+ <div>
     <ul class="tabs">
       <li class="tab-item"
             :class="{ 'tab-item__active' : selectedTab === tab }" 
             v-for="(tab, index) in tabs" 
-            @click="selectedTab = tab" :key="index"
+            @click="selectedTab = selectedPeriod = tab" :key="index"
       >{{ tab }}</li>
     </ul>
     <div class="tab-item__wrapper" v-show="selectedTab === 'Today'">
-      <p >Here will be a chart of spending for today.</p>
-    </div>
-    <div  class="tab-item__wrapper" v-show="selectedTab === 'Week'">
-      <p>Here will be a chart of spending for week</p>
-    </div>
-    <div  class="tab-item__wrapper" v-show="selectedTab === 'Month'">
-      <div class="total-spent"><h2>Total spent: </h2> <p class="total-spent__title">{{ totalValue }}</p></div>
       <my-chart 
       :categories="categories"
       :expenses="expenses"
       :filtered-jobs="filteredJobs"
-      :totalValue="totalValue"
+      :selectedPeriod="selectedPeriod"
+      ></my-chart>  
+    </div>
+    <div  class="tab-item__wrapper" v-show="selectedTab === 'Week'">
+      <my-chart 
+      :categories="categories"
+      :expenses="expenses"
+      :filtered-jobs="filteredJobs"
+      :selectedPeriod="selectedPeriod"
+      ></my-chart>  
+    </div>
+    <div  class="tab-item__wrapper" v-show="selectedTab === 'Month'">
+      <my-chart 
+      :categories="categories"
+      :expenses="expenses"
+      :filtered-jobs="filteredJobs"
+      :selectedPeriod="selectedPeriod"
+      ></my-chart>  
+    </div>
+    <div  class="tab-item__wrapper" v-show="selectedTab === 'All'">
+      <my-chart 
+      :categories="categories"
+      :expenses="expenses"
+      :filtered-jobs="filteredJobs"
+      :selectedPeriod="selectedPeriod"
       ></my-chart>  
     </div>
   </div>
@@ -29,8 +46,9 @@ import MyChart from './MyChart.vue';
 export default {
     data() {
     return {
-      tabs: ['Today', 'Week', 'Month']  ,
-      selectedTab: 'Month'  // устанавливается с помощью @click    
+      tabs: ['Today', 'Week', 'Month','All']  ,
+      selectedTab: 'Month',  // устанавливается с помощью @click  
+      selectedPeriod: 'Month' // для изменения периода диаграммы  
     }
   },
   components: {MyChart},
@@ -46,10 +64,8 @@ export default {
     filteredJobs: {
       type: Array, 
       required: true,
-    }, totalValue: {
-      type: Array,
-      required: true,
-    },}
+    }, 
+  }
 }</script>
 <style lang="sass">
 .tab-item__wrapper
@@ -57,15 +73,6 @@ export default {
   border-radius: 8px
   padding: 10px 20px
 
-.total-spent
-  display: flex
-  align-items: center
-
-.total-spent__title
-  font-size: 22px
-  font-weight: 600
-  letter-spacing: 2px
-  margin-left: 25px
 
 .tabs
   display: flex

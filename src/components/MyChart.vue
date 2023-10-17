@@ -1,19 +1,24 @@
 <template>
-  <div class="chart-info"> 
+  <div class="total-spent" v-show="totalValue > 0">
+    <h2>Total spent: </h2> <p class="total-spent__title">{{ totalValue }}</p>
+  </div>
+  <div class="chart-info" v-show="filteredExpenses.length > 0" > 
     <div class="chart-wrap">
       <canvas ref="myChart"  id="myChart"  ></canvas>
     </div>
     <div class="legend">
       <ul class="legend-list">
         <li class="legend-item" 
-        v-for="(category, index) in categories" 
-        :key="category.id"
+          v-for="(category, index) in uniqueCategories"
+          :key="category"
         >
-        <span class="category-color" :style="{ backgroundColor: category.color }"></span>
-          {{ category.name }} - {{ percentageData[index] }}%
+          <span class="category-color" :style="{ backgroundColor: categoryColorMap[category] }"></span>
+          {{ category }} - {{ percentageData[index] }}%
         </li>
       </ul>
     </div>
+  </div>
+  <div v-if="filteredExpenses.length === 0" ><h2>There were no expenses, add the first expense</h2>
   </div>
 </template>
 <script>
@@ -33,13 +38,20 @@ export default {
       type: Array,
       required: true,
     },
-    totalValue: {
-      type: Array,
+    selectedPeriod: {
+      type: String,
       required: true,
-    },
+    }
   },
+
   watch: {
-    expenses: {
+    // expenses: {
+    //   handler() {
+    //     // this.updateChart(); // Вызываем обновление графика при изменении данных
+    //   },
+    //   deep: true,
+    // },
+    filteredExpenses: {
       handler() {
         this.updateChart(); // Вызываем обновление графика при изменении данных
       },
@@ -55,15 +67,47 @@ export default {
     this.updateChart();
   },
   computed: {
+    totalValue() {
+    return this.filteredExpenses.reduce((sum, expense) => sum + parseFloat(expense.amounts), 0);
+  },
     percentageData() {
       const total = this.totalValue;
-      return this.categories.map((category) => {
-        const categoryTotal = this.filteredJobs
-        .filter((expense) => expense.category === category.name)
-        .reduce((sum, expense) => sum + parseFloat(expense.amounts), 0);
+      return this.uniqueCategories.map((category) => {
+        const categoryTotal = this.filteredExpenses
+          .filter((expense) => expense.category === category)
+          .reduce((sum, expense) => sum + parseFloat(expense.amounts), 0);
         return ((categoryTotal / total) * 100).toFixed(2);
       });
+      },
+    uniqueCategories() {
+      return Array.from(new Set(this.filteredExpenses.map(expense => expense.category)));
     },
+    filteredExpenses() {
+      
+    if (this.selectedPeriod === 'Today') {
+      const today = new Date().toISOString().split('T')[0];
+      return this.expenses.filter((expense) => expense.dataAdd.includes(today));
+    } else if (this.selectedPeriod === 'Week') {
+      const currentDate = new Date();
+      const currentDay = currentDate.getDay();
+      const firstDayOfWeek = new Date(currentDate);
+      firstDayOfWeek.setDate(currentDate.getDate() - currentDay);
+      const startOfWeek = firstDayOfWeek.toISOString().split('T')[0];
+      return this.expenses.filter((expense) => {
+        const expenseDate = expense.dataAdd.split(' ')[0];
+        return expenseDate >= startOfWeek;
+      });
+    } else if (this.selectedPeriod === 'Month') {
+      
+      const currentMonth = new Date().toISOString().split('-').slice(0, 2).join('-');
+      return this.expenses.filter((expense) => {
+        const expenseMonth = expense.dataAdd.split(' ')[0].split('-').slice(0, 2).join('-');
+        return expenseMonth === currentMonth;
+      });
+    } else {
+      return this.expenses;
+    }
+  },
     categoryColorMap() {
       const colorMap = {};
       this.categories.forEach((category) => {
@@ -73,15 +117,16 @@ export default {
     },
   },
   methods: {
-    updateChart() {
+    updateChart() {      
       const categoryExpenses = {};
-      this.expenses.forEach((expense) => {
+      this.filteredExpenses.forEach((expense) => {
         if (categoryExpenses[expense.category]) {
           categoryExpenses[expense.category] += parseFloat(expense.amounts);
         } else {
-        categoryExpenses[expense.category] = parseFloat(expense.amounts);
+          categoryExpenses[expense.category] = parseFloat(expense.amounts);
         }
       });
+
       const ctx = this.$refs.myChart.getContext('2d');
       const labels = Object.keys(categoryExpenses);     
       // создали вычисляемое свойство categoryColorMap, которое создает объект с соответствием между именами категорий и цветами, используя массив categories. 
@@ -137,6 +182,16 @@ export default {
 };
 </script>
 <style scoped lang="sass">
+.total-spent
+  display: flex
+  align-items: center
+
+.total-spent__title
+  font-size: 22px
+  font-weight: 600
+  letter-spacing: 2px
+  margin-left: 25px
+
 .chart-wrap
   width: 50%
   height: 400px

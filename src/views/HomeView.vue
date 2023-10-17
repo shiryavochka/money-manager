@@ -5,7 +5,6 @@
       <chart-tabs :categories="categories"
       :expenses="expenses"
       :filtered-jobs="filteredJobs"
-      :totalValue="totalValue"
       ></chart-tabs>
     </div>   
     <div class="container">
@@ -35,7 +34,6 @@
 <script>
 import ExpensesList from '@/components/ExpensesList.vue';
 import FormAdd from "@/components/FormAdd";
-import { toNumber } from '@vue/shared'; 
 import ChartTabs from '@/components/ChartTabs.vue';
 import CategoryList from "@/components/CategoryList.vue";
 
@@ -62,12 +60,15 @@ export default {
         {  amounts: '2800', dataAdd : '2023-08-18 21:01', category:'clothes' ,name: 'Shirts', },
         {  amounts: '1500', dataAdd : '2023-08-19 18:18', category:'entertainments' ,name: 'Cinema', },
         {  amounts: '2500', dataAdd : '2023-08-19 16:47', category:'services' ,name: 'Manicure', },
-        {  amounts: '2900', dataAdd : '2023-08-20 19:40', category:'clothes' ,name: 'Jeans', },
-        {  amounts: '5420', dataAdd : '2023-08-20 19:58', category:'gifts' ,name: 'Cosmetics', },
-        {  amounts: '1700', dataAdd : '2023-08-21 10:15', category:'health' ,name: 'Vitamins', },
-        {  amounts: '600', dataAdd : '2023-08-23 15:16', category:'restaurants' ,name: 'Pizza', },
-        {  amounts: '1500', dataAdd : '2023-08-25 07:30', category:'transport' ,name: 'Travel card', },
-        {  amounts: '664', dataAdd : '2023-08-25 15:10', category:'house' ,name: 'Electricity', },
+        {  amounts: '2900', dataAdd : '2023-10-03 19:40', category:'clothes' ,name: 'Jeans', },
+        {  amounts: '5420', dataAdd : '2023-10-04 19:58', category:'gifts' ,name: 'Cosmetics', },
+        {  amounts: '1700', dataAdd : '2023-10-07 10:15', category:'health' ,name: 'Vitamins', },
+        {  amounts: '600', dataAdd : '2023-10-10 15:16', category:'restaurants' ,name: 'Pizza', },
+        {  amounts: '1500', dataAdd : '2023-10-15 07:30', category:'transport' ,name: 'Travel card', },
+        {  amounts: '664', dataAdd : '2023-10-16 15:10', category:'house' ,name: 'Electricity', },
+        {  amounts: '504', dataAdd : '2023-10-15 17:50', category:'house' ,name: 'Water bill', },
+        {  amounts: '500', dataAdd : '2023-10-16 09:05', category:'clothes' ,name: 'Asos', },
+        {  amounts: '7000', dataAdd : '2023-10-16 10:50', category:'clothes' ,name: 'Adidas Clothes', },
       ],  
       checked: [], 
       categories : [
@@ -88,9 +89,6 @@ export default {
     }
     },
     computed:{
-      totalValue() {
-        return this.expenses.reduce((sum, login) => sum + toNumber(login.amounts), 0);
-      },
       sortedJobs() {
         const filteredExpenses = this.filteredJobs;
         // Сортируем отфильтрованные транзакции по дате в убывающем порядке
